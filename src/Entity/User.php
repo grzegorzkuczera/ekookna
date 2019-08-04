@@ -4,14 +4,20 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
-
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
+ * @UniqueEntity(fields="email", message="This e-mail is already used")
+ * @UniqueEntity(fields="username", message="This username is already used")
  */
 class User implements UserInterface, \Serializable
 {
+    const ROLE_USER = 'ROLE_USER';
+    const ROLE_ADMIN = 'ROLE_ADMIN';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -21,17 +27,22 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Length(min=5, max=50)
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank()
+     * @Assert\Email()
      */
     private $email;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="simple_array", length=50)
      */
+
     private $roles = [];
 
     /**
@@ -57,6 +68,12 @@ class User implements UserInterface, \Serializable
         return $this;
     }
 
+    public function setUsername(string $username): self
+    {
+        $this->username = $username;
+
+        return $this;
+    }
     /**
      * A visual identifier that represents this user.
      *
@@ -74,7 +91,7 @@ class User implements UserInterface, \Serializable
     {
         $roles = $this->roles;
         // guarantee every user at least has ROLE_USER
-        $roles[] = 'ROLE_USER';
+        $roles[] = self::ROLE_USER;
 
         return array_unique($roles);
     }
