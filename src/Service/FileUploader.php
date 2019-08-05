@@ -15,6 +15,7 @@ class FileUploader
 
     public function upload(UploadedFile $file) : array
     {
+
         $originalFilename = pathinfo($file->getClientOriginalName(), PATHINFO_FILENAME);
         $originalFileSize = $file->getSize();
         $originalFileExtension = $file->getClientOriginalExtension();
@@ -23,10 +24,11 @@ class FileUploader
         $fileName = $safeFilename.'-'.md5(uniqid()).'.'.$file->guessExtension();
 
         try {
+
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
-            
-            // ... handle exception if something happens during file upload
+
+           throw new FileException($e);
         }
 
         return [
