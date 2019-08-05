@@ -19,8 +19,9 @@ class File
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=48)
+     * @ORM\Column(type="string", length=255)
      * @Assert\NotBlank()
+     * @Assert\Length(max=255)
      */
     private $fileName;
 
