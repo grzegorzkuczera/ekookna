@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Panel Admin{% endblock %}
+{% block stylesheets %}
+{{ parent() }}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+{% endblock %}
+{% block body %}
+<div class="example-wrapper">
+<h1 class="text-info">Sugested bus stations list</h1>
+   <div class="row mt-5">
+       <div class="col-sm-12">
+         <table id="bus_stations" class="table table-striped table-bordered w-100" >
+            <thead>
+                <th></th>
+                <th>Address</th>
+                <th>Created date</th> 
+                <th>OnRead</th>             
+                <th>Options</th>
+             </thead>                 
+             <tfoot>
+                <th></th>
+                <th>Address</th>
+                <th>Created date</th>
+                <th>OnRead</th>
+                <th>Options</th>                
+                </tfoot>
+            </table>
+       </div>
+   </div>
+</div>
+{% endblock %}
+{% block javascripts %}
+{{ parent() }}
+  {{ encore_entry_script_tags('js/admin') }}
+{% endblock %}

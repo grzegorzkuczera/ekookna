@@ -31,10 +31,14 @@ Encore
         './node_modules/holderjs/holder.min.js',
         './assets/js/app.js'
     ])
+    .addEntry('js/front', './assets/js/front.js')
+    .addEntry('js/admin', './assets/js/admin.js')
+    
     .addStyleEntry('css/app', [
         './node_modules/bootstrap/dist/css/bootstrap.min.css',
         './assets/css/app.css'
     ])
+    //.autoProvidejQuery()
     //.addEntry('page1', './assets/js/page1.js')
     //.addEntry('page2', './assets/js/page2.js')
 

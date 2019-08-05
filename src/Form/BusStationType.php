@@ -17,13 +17,14 @@ class BusStationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('address', TextType::class, ['required' => true])
+            ->add('address', TextType::class, ['label'=>'Address', 'required' => true, 'translation_domain' => 'messages'])
             ->add('description', TextareaType::class, ['required' => true])
             ->add('attachments', FileType::class, [
+                'label'=> 'Attachments (png, jpg, jpg, bmp)',
                 'multiple' => true,
-                'required' => false
+                'required' => true, 'translation_domain' => 'messages'
             ])
-            ->add('save', SubmitType::class);
+            ->add('save', SubmitType::class,['translation_domain' => 'messages']);
         ;
     }
 

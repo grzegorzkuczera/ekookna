@@ -67,6 +67,11 @@ class BusStation
     */
     private $attachments;
 
+    /**
+     * @ORM\Column(type="boolean", options={"default" : 0})
+     */
+    private $onRead;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -167,6 +172,18 @@ class BusStation
     public function setAttachments(array $attachments): self
     {
         $this->attachments = $attachments;
+
+        return $this;
+    }
+
+    public function getOnRead(): ?bool
+    {
+        return $this->onRead;
+    }
+
+    public function setOnRead(bool $onRead): self
+    {
+        $this->onRead = $onRead;
 
         return $this;
     }

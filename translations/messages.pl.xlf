@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" target-language="pl" datatype="plaintext" original="file.ext">
+        <body>
+           <trans-unit id="menu.brand">
+                <source>Bus Stop</source>
+                <target>Przystanki autobusowe</target>
+            </trans-unit>
+            <trans-unit id="menu.signin">
+                <source>Sign in</source>
+                <target>Logowanie</target>
+            </trans-unit>
+            <trans-unit id="menu.signout">
+                <source>Sign out</source>
+                <target>Wylogowanie</target>
+            </trans-unit>
+            <trans-unit id="menu.admin">
+                <source>Admin</source>
+                <target>Panel administratora</target>
+            </trans-unit>
+            <trans-unit id="header.default.index">
+                <source>Suggest new bus stop</source>
+                <target>Propozycja nowego przystanku autobusowego</target>
+            </trans-unit>
+            <trans-unit id="required.fields">
+                <source>Required fields</source>
+                <target>Pola wymagane</target>
+            </trans-unit>
+            <trans-unit id="messages.address">
+                <source>Address</source>
+                <target>Adres</target>
+            </trans-unit>
+             <trans-unit id="messages.description">
+                <source>Description</source>
+                <target>Opis</target>
+            </trans-unit>
+            <trans-unit id="messages.attachments">
+                <source>Attachments (png, jpg, jpg, bmp)</source>
+                <target>Załączniki (png, jpg, jpg, bmp)</target>
+            </trans-unit>
+            <trans-unit id="messages.save">
+                <source>Save</source>
+                <target>Zapisz</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

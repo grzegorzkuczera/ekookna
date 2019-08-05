@@ -5,19 +5,21 @@
         <title>{% block title %}{% endblock %}</title>
         {% block stylesheets %}
         <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
-       <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         {% endblock %}
     </head>
   <body class="bg-light">
 
-<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark p-0">
-    <a class="navbar-brand col-sm-3 col-md-2 mr-0"
-       href="{{ path('default_index') }}">Bus Stop</a>
+<nav class="navbar navbar-dark navbar-expand-md sticky-top bg-dark ">
+    <a class="navbar-brand"
+       href="{{ path('default_index') }}"><i class="fas fa-bus-alt"></i> {{ 'Bus Stop'|trans }}</a>
 
-    <div class="order-2 order-md-1">
-        <ul class="navbar-nav px-3">
+        <ul class="navbar-nav ml-auto">
             {% if is_granted('ROLE_ADMIN') %}
-              
+               <li class="nav-item text-nowrap">
+                    <a class="nav-link"
+                       href="{{ path('admin_index') }}">{{ 'Admin'|trans }}</a>
+                </li>
                 <li class="nav-item text-nowrap">
                     <a class="nav-link"
                        href="#">{{ app.user.username }}</a>
@@ -33,12 +35,17 @@
                 </li>
             {% endif %}
         </ul>
-    </div>
+    
 </nav>
 
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded box-shadow">
         {% block body %}
+            {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+            {% endfor %}
         {% endblock %}
     </div>
 </main>

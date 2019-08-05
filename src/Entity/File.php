@@ -94,4 +94,15 @@ class File
 
         return $this;
     }
+    public function getFileAsArray(): array
+    {
+        $fileName = $this->getFileName();
+        return [
+            'id' => $this->getId(),
+            'name' => strstr($fileName, '-', true),
+            'filePath' => $fileName,
+            'fileSize' => $this->getFileSize(),
+            'fileExtension' => $this->getFileExtension(),
+        ];
+    } 
 }

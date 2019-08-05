@@ -17,6 +17,7 @@
         "build": "encore production --progress"
     },
     "dependencies": {
+        "datatables.net-bs4": "^1.10.19",
         "holderjs": "^2.9.6"
     }
 }

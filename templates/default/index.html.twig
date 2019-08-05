@@ -5,12 +5,20 @@
 {% block body %}
 
 <div class="example-wrapper">
-    <h1 class="mb-3">Suggest new bus stop</h1>
+    <h1 class="mb-3">{{ 'Suggest new bus stop' | trans }}</h1>
+    {{ parent() }}
     {{ form_start(form) }}
 
     {{ form_widget(form) }} 
         
+        <div class="form-group">
+            <label class="required">{{ 'Required fields' | trans }} </span>
+        <div>
     {{ form_end(form) }}
 
 </div>
+{% endblock %}
+{% block javascripts %}
+     {{ parent() }}
+     {{ encore_entry_script_tags('js/front') }}
 {% endblock %}

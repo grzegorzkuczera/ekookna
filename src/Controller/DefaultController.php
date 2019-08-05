@@ -16,7 +16,6 @@ use Symfony\Component\HttpFoundation\Request;
 class DefaultController extends AbstractController
 {
 
-
     /**
      * @Route("/", name="default_index")
      */
@@ -46,6 +45,8 @@ class DefaultController extends AbstractController
                     ->getManager();
                $entityManager->persist($busStation);
                $entityManager->flush();
+               
+               $this->addFlash('success', 'Files is attaches to the system');
 
                return $this->redirectToRoute('default_index');
            }

@@ -8,6 +8,15 @@ use App\Entity\BusStation;
 
 class DefaultUserCreatorBusStationSubscriber implements EventSubscriber
 {
+    /**
+     * @var created_by
+     */
+    private $created_by;
+
+    public function __construct($created_by)
+    {
+        $this->created_by = $created_by;
+    }
     public function getSubscribedEvents()
     {
         return [
@@ -23,7 +32,8 @@ class DefaultUserCreatorBusStationSubscriber implements EventSubscriber
             return;
         }
 
-        $entity->setCreatedBy(1); 
+        $entity->setCreatedBy((int) $this->created_by)
+               ->setOnRead(false); 
     }
    
 }
