@@ -41,3 +41,7 @@ services:
     App\Twig\AppExtension:
         arguments:
             $target_directory: '%target_directory%'
+    
+    App\EventListener\RemoveUploadFilesSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }

@@ -27,7 +27,7 @@ $(function() {
                          "render": function ( data, type, full, meta ) {
                                 return `<ul class="list-inline">
                                 <li class="list-inline-item"><a class="edit" href="/admin/edit/${full.id}"><i class="far fa-edit"></i></a>
-                                </li><li class="list-inline-item hide"><a class="delete text-danger"  href="/admin/delete/${full.id}"><i class="far fa-trash-alt"></i></li>
+                                </li><li class="list-inline-item"><a class="delete text-danger"  href="/admin/delete/${full.id}"><i class="far fa-trash-alt"></i></li>
                                 </ul>`;        
                              } 
                         }

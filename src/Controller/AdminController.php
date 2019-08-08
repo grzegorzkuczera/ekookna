@@ -8,6 +8,8 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use App\Repository\BusStationRepository;
 use App\Entity\BusStation;
+use Doctrine\ORM\EntityManagerInterface;
+
 
 /**
  * @Route("/admin")
@@ -21,11 +23,17 @@ class AdminController extends AbstractController
     private $busStationRepository;
 
     /**
+     * @var $entityManager
+     */
+    private $entityManager;
+
+    /**
      * @param BusStationRepository $busStationRepositor
      */
-    public function __construct(BusStationRepository $busStationRepository)
+    public function __construct(BusStationRepository $busStationRepository, EntityManagerInterface $entityManager)
     {
         $this->busStationRepository = $busStationRepository;
+        $this->entityManager = $entityManager;
     }
 
     /**
@@ -70,11 +78,20 @@ class AdminController extends AbstractController
     }
 
     /**
-     * @Route("/delete")
+     * @Route("/delete/{id}")
      */
     public function delete(BusStation $busStation)
     {
-       
+        
+        $this->entityManager->remove($busStation);
+        $this->entityManager->flush();
+
+        $this->addFlash(
+            'notice',
+            'bus stop was deleted'
+        );
+
+        return $this->redirectToRoute('admin_index');
     }
     
 }

@@ -41,11 +41,13 @@
 <main role="main" class="container">
     <div class="my-3 p-3 bg-white rounded box-shadow">
         {% block body %}
-            {% for message in app.flashes('success') %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
+           {% for label, messages in app.flashes %}
+            {% for message in messages %}
+                <div class="flash-{{ label }}">
+                    {{ message }}
+                </div>
             {% endfor %}
+        {% endfor %}
         {% endblock %}
     </div>
 </main>

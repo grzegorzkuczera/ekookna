@@ -24,7 +24,6 @@ class FileUploader
         $fileName = $safeFilename.'-'.md5(uniqid()).'.'.$file->guessExtension();
 
         try {
-
             $file->move($this->getTargetDirectory(), $fileName);
         } catch (FileException $e) {
 
@@ -36,6 +35,13 @@ class FileUploader
                  'size' => $originalFileSize, 
                  'extension' => $originalFileExtension
                 ];
+    }
+
+    public function removeFile(string $fileName)
+    {
+        $link = $this->getTargetDirectory().'/'.$fileName;
+
+        return unlink($link);
     }
 
     public function getTargetDirectory()
