@@ -22,11 +22,15 @@ security:
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
-            form_login:
-                check_path: security_login
-                login_path: security_login
-                csrf_token_generator: security.csrf.token_manager
-                default_target_path: admin_index  
+            guard:
+                authenticators:
+#                    - lexik_jwt_authentication.jwt_token_authenticator
+                    - App\Security\LoginFormAuthenticator
+            #form_login:
+           #     check_path: security_login
+           #     login_path: security_login
+           #     csrf_token_generator: security.csrf.token_manager
+                #default_target_path: admin_index  
             logout:
                 path: security_logout
                 target: default_index
@@ -34,4 +38,5 @@ security:
     # Note: Only the *first* access control that matches will be used
     access_control:
          - { path: ^/admin, roles: ROLE_ADMIN }
-        # - { path: ^/profile, roles: ROLE_USER }
+         # - { path: ^/profile, roles: ROLE_USER }
+         - { path: ^/profile, roles: ROLE_USER }

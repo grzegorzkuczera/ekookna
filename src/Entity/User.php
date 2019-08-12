@@ -51,6 +51,20 @@ class User implements UserInterface, \Serializable
      */
     private $password;
 
+    /*
+     * @Assert\NotBlank()
+     * @Assert\Length(min=8, max=4096)
+     */
+   
+    private $plainPassword;
+
+    public function __construct()
+    {
+       
+        $this->roles = [self::ROLE_USER];
+        
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -90,9 +104,6 @@ class User implements UserInterface, \Serializable
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
-        $roles[] = self::ROLE_USER;
-
         return array_unique($roles);
     }
 
@@ -152,5 +163,17 @@ class User implements UserInterface, \Serializable
         list(
             $this->id, $this->username, $this->password
             ) = unserialize($serialized);
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
+
+        return $this;
     }
 }
