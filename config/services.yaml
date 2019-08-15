@@ -4,6 +4,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    locale: 'en'
     target_directory: 'uploads/busstations/'
     upload_directory: '%kernel.project_dir%/public/uploads/busstations'
     created_by: 1
@@ -45,3 +46,13 @@ services:
     App\EventListener\RemoveUploadFilesSubscriber:
         tags:
             - { name: doctrine.event_subscriber, connection: default }
+    Symfony\Component\HttpFoundation\Session\Storage\Handler\PdoSessionHandler:
+        arguments:
+#            - 'mysql:dbname=session_db'
+#            - { db_username: user, db_password: my_password }
+            - !service { class: PDO, factory: 'database_connection:getWrappedConnection' }
+            - { lock_mode: 1 }
+
+    App\EventSubscriber\LocaleSubscriber:
+        arguments:
+            - '%kernel.default_locale%'
