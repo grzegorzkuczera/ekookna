@@ -56,3 +56,8 @@ services:
     App\EventSubscriber\LocaleSubscriber:
         arguments:
             - '%kernel.default_locale%'
+
+    App\EventListener\SlugifySubscriber:
+        tags:
+            - { name: doctrine.event_subscriber, connection: default }
+            

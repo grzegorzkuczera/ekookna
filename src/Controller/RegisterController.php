@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 use App\Entity\User;
+use App\Entity\UserPreferences;
 use App\Form\UserType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -29,9 +30,15 @@ class RegisterController extends AbstractController
                 $user->getPlainPassword()
             );
             $user->setPassword($password);
-          
+
+            $locale = $this->getParameter('locale');
+            $preferences = new UserPreferences();
+            $preferences->setLocale($locale);
+
+            $user->setPreferences($preferences);
             $entityManager = $this->getDoctrine()
                 ->getManager();
+        
             $entityManager->persist($user);
             $entityManager->flush();
 

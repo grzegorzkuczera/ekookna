@@ -6,14 +6,14 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-
+use App\Entity\SlugifyInterface as Slug;
 /**
  * @ORM\Table(name="users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields="email", message="This e-mail is already used")
  * @UniqueEntity(fields="username", message="This username is already used")
  */
-class User implements UserInterface, \Serializable
+class User implements UserInterface, \Serializable, Slug
 {
     const ROLE_USER = 'ROLE_USER';
     const ROLE_ADMIN = 'ROLE_ADMIN';
@@ -24,6 +24,11 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(length=128, unique=true)
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=50, unique=true)
@@ -45,6 +50,8 @@ class User implements UserInterface, \Serializable
 
     private $roles = [];
 
+    private $slugFields = ['id', 'username'];
+
     /**
      * @var string The hashed password
      * @ORM\Column(type="string")
@@ -57,6 +64,13 @@ class User implements UserInterface, \Serializable
      */
    
     private $plainPassword;
+
+    
+    
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\UserPreferences", cascade={"persist"})
+     */
+    private $preferences;
 
     public function __construct()
     {
@@ -175,5 +189,40 @@ class User implements UserInterface, \Serializable
         $this->plainPassword = $plainPassword;
 
         return $this;
+    }
+
+     /**
+     * @return UserPreferences|null
+     */
+    public function getPreferences()
+    {
+        return $this->preferences;
+    }
+
+    /**
+     * @param mixed $preferences
+     */
+    public function setPreferences($preferences): self
+    {
+        $this->preferences = $preferences;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getSlugFields(): array
+    {
+        return $this->slugFields;
     }
 }
